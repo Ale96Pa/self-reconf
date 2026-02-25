@@ -1,0 +1,69 @@
+Vagrant.configure("2") do |config|
+
+  boxes = [
+    "ubuntu/bionic64",   # Ubuntu 18.04 LTS
+    "ubuntu/focal64",    # Ubuntu 20.04 LTS
+    "ubuntu/jammy64",    # Ubuntu 22.04 LTS
+    "debian/bullseye64", # Debian 11
+    "debian/bookworm64"  # Debian 12
+  ]
+
+# --- 9 VM Linux for the replicas ---
+#they are the machines collaborating to run the PBFT protocol
+  (0..8).each do |i|
+    config.vm.define "linux-replica#{i}" do |replica|
+      replica.vm.box = boxes[i % boxes.length]
+      replica.vm.hostname = "linux-replica#{i}"
+      replica.vm.network "private_network", ip: "192.168.56.1#{i+10}"
+      replica.vm.provider "virtualbox" do |vb|
+        vb.memory = 1024
+      end
+      #provisioning: install Docker and start the replica container
+      replica.vm.provision "shell", inline: <<-'SHELL', args: [i]
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+        #i comandi commentati li eseguo io manualmente dal terminale della vm una volta creata
+        #docker pull elisaferrari/pbft-java:latest
+        #docker run --rm --name replica#{i} elisa.ferrari/pbft-java:latest --replicaId=#{i} --redis=192.168.1.189
+
+        #installing some services
+        #first 4 replicas: install apache
+        #others: install mysql server
+
+        if [ $1 -le 4 ]; then
+          echo "Installing Apache on replica$1"
+          sudo apt-get install -y apache2
+          sudo systemctl enable apache2
+          sudo systemctl start apache2
+        elif [ $1 -eq 8 ]; then
+          #debian replica with MariaDB
+          echo "Installing MariaDB on replica$1"
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
+          sudo systemctl enable mariadb
+          sudo systemctl start mariadb
+        else
+          echo "Installing MySQL on replica$1"
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+          sudo systemctl enable mysql
+          sudo systemctl start mysql
+        fi
+
+      SHELL
+    end
+  end
+
+  # --- 2 VM Windows for the other replica and the client ---
+#  (3..4).each do |i|
+#    config.vm.define "win-replica#{i}" do |replica|
+#      replica.vm.box = "baunegaard/win10pro-en"
+#      replica.vm.hostname = "win-replica#{i}"
+#      replica.vm.network "private_network", ip: "192.168.56.1#{i+10}"
+#      replica.vm.provider "virtualbox" do |vb|
+#        vb.memory = 2048
+#      end
+      # Windows: lancio manualmente il container docker
+       #docker pull elisaferrari/pbft-java:latest
+        #docker run --rm --name replica#{i} elisa.ferrari/pbft-java:latest --replicaId=#{i} --redis=192.168.1.189
+#    end
+#  end
+end

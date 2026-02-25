@@ -1,0 +1,59 @@
+Vagrant.configure("2") do |config|
+
+  candidate_boxes = [
+    "ubuntu/bionic64",
+    "ubuntu/focal64",
+    "ubuntu/jammy64",
+    "debian/bullseye64",
+    "debian/bookworm64"
+  ]
+
+  (0..11).each do |i|
+    #assigning specific boxes to certain candidates
+    box_index = case i
+                when 4, 8, 9
+                  4 #debian box to be used for MariaDB
+                when 5
+                  0 #ubuntu box to be used for Apache and mySQL
+                else
+                  i % candidate_boxes.length
+                end
+
+    config.vm.define "linux-candidate#{i}" do |replica|
+      replica.vm.box = candidate_boxes[box_index]
+      replica.vm.hostname = "linux-candidate#{i}"
+
+      #ip addresses 
+      ip_last_octet = 50 + i  # parte da 50
+      replica.vm.network "private_network", ip: "192.168.56.#{ip_last_octet}"
+
+      replica.vm.provider "virtualbox" do |vb|
+        vb.memory = 1024
+      end
+
+      #provisioning: install Docker and start the candidate container
+      replica.vm.provision "shell", inline: <<-'SHELL', args: [i]
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+
+        #intallation of services
+        if [ $1 -le 3 ]; then
+          echo "Installing Apache on candidate$1"
+          sudo apt-get install -y apache2
+          sudo systemctl enable apache2
+          sudo systemctl start apache2
+        elif [ $1 -eq 4 ]|| [ $1 -eq 8 ] || [ $1 -eq 9 ]; then
+          echo "Installing MariaDB on candidate$1"
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
+          sudo systemctl enable mariadb
+          sudo systemctl start mariadb
+        else
+          echo "Installing MySQL on candidate$1"
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+          sudo systemctl enable mysql
+          sudo systemctl start mysql
+        fi
+      SHELL
+    end
+  end
+end

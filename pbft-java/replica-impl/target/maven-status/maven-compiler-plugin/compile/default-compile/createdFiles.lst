@@ -1,0 +1,15 @@
+com\gmail\woodyc40\pbft\message\DefaultReplicaNewView.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaReply.class
+com\gmail\woodyc40\pbft\DefaultReplicaMessageLog.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaPrepare.class
+com\gmail\woodyc40\pbft\DefaultReplicaRequestKey.class
+com\gmail\woodyc40\pbft\DefaultReplica.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaCheckpoint.class
+com\gmail\woodyc40\pbft\DefaultReplicaMessageLog$TicketKey.class
+com\gmail\woodyc40\pbft\DefaultReplica$LinearBackoff.class
+com\gmail\woodyc40\pbft\DefaultReplicaTicket.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaCommit.class
+com\gmail\woodyc40\pbft\DefaultReplicaViewChangeResult.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaPrePrepare.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaRequest.class
+com\gmail\woodyc40\pbft\message\DefaultReplicaViewChange.class

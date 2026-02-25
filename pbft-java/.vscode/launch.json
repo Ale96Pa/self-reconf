@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.gmail.woodyc40.pbft.Main",
+            "projectName": "pbft-java-example"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ReplicaLauncher",
+            "request": "launch",
+            "mainClass": "com.gmail.woodyc40.pbft.ReplicaLauncher",
+            "projectName": "pbft-java-example"
+        }
+    ]
+}

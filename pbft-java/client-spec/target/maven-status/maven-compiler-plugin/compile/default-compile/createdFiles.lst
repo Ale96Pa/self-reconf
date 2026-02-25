@@ -1,0 +1,6 @@
+com\gmail\woodyc40\pbft\Client.class
+com\gmail\woodyc40\pbft\ClientTransport.class
+com\gmail\woodyc40\pbft\message\ClientRequest.class
+com\gmail\woodyc40\pbft\ClientTicket.class
+com\gmail\woodyc40\pbft\message\ClientReply.class
+com\gmail\woodyc40\pbft\ClientEncoder.class

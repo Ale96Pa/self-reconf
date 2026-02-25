@@ -1,0 +1,12 @@
+com\gmail\woodyc40\pbft\ReplicaLauncher$1.class
+com\gmail\woodyc40\pbft\type\AdditionOperation.class
+com\gmail\woodyc40\pbft\replica\AdditionReplica.class
+com\gmail\woodyc40\pbft\client\AdditionClient.class
+com\gmail\woodyc40\pbft\client\AdditionClientEncoder.class
+com\gmail\woodyc40\pbft\client\AdditionClientTransport.class
+com\gmail\woodyc40\pbft\ReplicaLauncher$2.class
+com\gmail\woodyc40\pbft\replica\NoopDigester.class
+com\gmail\woodyc40\pbft\replica\AdditionReplicaEncoder.class
+com\gmail\woodyc40\pbft\replica\AdditionReplicaTransport.class
+com\gmail\woodyc40\pbft\ReplicaLauncher.class
+com\gmail\woodyc40\pbft\type\AdditionResult.class

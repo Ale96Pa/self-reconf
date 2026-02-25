@@ -1,0 +1,15 @@
+{
+    "mean_availability": 1.0,
+    "mean_MTTF": 569.4448321286557,
+    "mean_MTTR": NaN,
+    "mean_max_down": 1.01,
+    "crash_count_mean_per_replica": [
+        1.41,
+        1.36,
+        1.26,
+        1.32,
+        1.21,
+        1.68,
+        1.68
+    ]
+}
