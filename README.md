@@ -1,4 +1,6 @@
-# An Autonomous Self-Protecting Architecture to Preserve Availability in Distributed Systems
+# One More Rep
+## Self-Adaptation for Availability and Security in Replicated Distributed Systems
+
 This project presents an autonomous self-protection system applied to a PBFT-based distributed network. The goal is to monitor the system from both performance and security perspectives and to support proactive decision-making through a MAPE-based control loop.
 
 The PBFT implementation is based on an existing open-source project, which has been extended and modified by the author: https://github.com/caojohnny/pbft-java
